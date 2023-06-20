@@ -6,9 +6,10 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
+const cors = require("cors")
 
 dotenv.config();
-
+app.use(cors())
 const PORT = process.env.PORT || 4000
 mongoose
   .connect(process.env.MONGO_URL, {
