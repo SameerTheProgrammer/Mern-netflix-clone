@@ -22,7 +22,9 @@ mongoose
   });
 
 app.use(express.json());
-
+app.get("/",(req,res)=>{
+  res.end("hello")
+})
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
