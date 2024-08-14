@@ -11,17 +11,17 @@ export default function Register() {
   const history = useHistory();
 
   const emailRef = useRef();
-  const passwordRef = useRef();
-  const usernameRef = useRef();
 
   const handleStart = () => {
     setEmail(emailRef.current.value);
   };
   const handleFinish = async (e) => {
     e.preventDefault();
-    setPassword(passwordRef.current.value);
-    setUsername(usernameRef.current.value);
     try {
+      console.log(
+        `${process.env.BACKEND_URL}/auth/register`,
+        { email, username, password }
+      );
       await axios.post(`${process.env.BACKEND_URL}/auth/register`, { email,username, password });
       history.push("/login");
     } catch (err) {}
@@ -53,8 +53,16 @@ export default function Register() {
           </div>
         ) : (
           <form className="input">
-            <input type="username" placeholder="username" ref={usernameRef} />
-            <input type="password" placeholder="password" ref={passwordRef} />
+            <input
+              type="username"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button className="registerButton" onClick={handleFinish}>
               Start
             </button>
