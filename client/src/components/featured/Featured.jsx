@@ -13,7 +13,7 @@ export default function Featured({ type, setGenre }) {
         const res = await axios.get(`${apiUrl}/movies/random?type=${type}`, {
           headers: {
             token:
-              "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+              "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
         console.log("API Response:", res.data); // Log the response to check its structure
@@ -59,27 +59,21 @@ export default function Featured({ type, setGenre }) {
           </select>
         </div>
       )}
-      {content ? (
-        <>
-          <img src={content.img} alt="Featured" />
-          <div className="info">
-            <img src={content.imgTitle} alt="Title" />
-            <span className="desc">{content.desc}</span>
-            <div className="buttons">
-              <button className="play">
-                <PlayArrow />
-                <span>Play</span>
-              </button>
-              <button className="more">
-                <InfoOutlined />
-                <span>Info</span>
-              </button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <p>No content available</p> // Optional: display a message if content is null
-      )}
+      {content.img && <img src={content.img} alt="Featured" />}
+      <div className="info">
+        {content.imgTitle && <img src={content.imgTitle} alt="Title" />}
+        <span className="desc">{content.desc}</span>
+        <div className="buttons">
+          <button className="play">
+            <PlayArrow />
+            <span>Play</span>
+          </button>
+          <button className="more">
+            <InfoOutlined />
+            <span>Info</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
