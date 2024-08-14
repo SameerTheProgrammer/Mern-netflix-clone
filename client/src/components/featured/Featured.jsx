@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import "./featured.scss";
 
 export default function Featured({ type, setGenre }) {
-  const [content, setContent] = useState({});
+  const [content, setContent] = useState(null); // Initialize as null
 
   useEffect(() => {
     const getRandomContent = async () => {
@@ -16,15 +16,22 @@ export default function Featured({ type, setGenre }) {
               "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
           },
         });
-        setContent(res.data[0]);
+        console.log("API Response:", res.data); // Log the response to check its structure
+        if (res.data && res.data.length > 0) {
+          setContent(res.data[0]);
+        } else {
+          setContent(null); // Handle case where no content is returned
+        }
       } catch (err) {
         console.log(err);
+        setContent(null); // Handle errors by setting content to null
       }
     };
     getRandomContent();
   }, [type]);
 
-  console.log(content);
+  console.log(content); // Log content for debugging
+
   return (
     <div className="featured">
       {type && (
@@ -52,21 +59,27 @@ export default function Featured({ type, setGenre }) {
           </select>
         </div>
       )}
-      <img src={content.img} alt="" />
-      <div className="info">
-        <img src={content.imgTitle} alt="" />
-        <span className="desc">{content.desc}</span>
-        <div className="buttons">
-          <button className="play">
-            <PlayArrow />
-            <span>Play</span>
-          </button>
-          <button className="more">
-            <InfoOutlined />
-            <span>Info</span>
-          </button>
-        </div>
-      </div>
+      {content ? (
+        <>
+          <img src={content.img} alt="Featured" />
+          <div className="info">
+            <img src={content.imgTitle} alt="Title" />
+            <span className="desc">{content.desc}</span>
+            <div className="buttons">
+              <button className="play">
+                <PlayArrow />
+                <span>Play</span>
+              </button>
+              <button className="more">
+                <InfoOutlined />
+                <span>Info</span>
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <p>No content available</p> // Optional: display a message if content is null
+      )}
     </div>
   );
 }
