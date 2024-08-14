@@ -10,11 +10,12 @@ import {
   getMoviesStart,
   getMoviesSuccess,
 } from "./MovieActions";
+import {apiUrl} from "../../constant";
 
 export const getMovies = async (dispatch) => {
   dispatch(getMoviesStart());
   try {
-    const res = await axios.get(`${process.env.BACKEND_URL}/movies`, {
+    const res = await axios.get(`${apiUrl}/movies`, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
@@ -29,7 +30,7 @@ export const getMovies = async (dispatch) => {
 export const createMovie = async (movie, dispatch) => {
   dispatch(createMovieStart());
   try {
-    const res = await axios.post(`${process.env.BACKEND_URL}/movies`, movie, {
+    const res = await axios.post(`${apiUrl}/movies`, movie, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
@@ -44,7 +45,7 @@ export const createMovie = async (movie, dispatch) => {
 export const deleteMovie = async (id, dispatch) => {
   dispatch(deleteMovieStart());
   try {
-    await axios.delete(`${process.env.BACKEND_URL}/movies/` + id, {
+    await axios.delete(`${apiUrl}/movies/` + id, {
       headers: {
         token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
       },
