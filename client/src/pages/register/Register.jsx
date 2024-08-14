@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./register.scss";
+import { apiUrl } from "../constant";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,6 @@ export default function Register() {
 const handleFinish = async (e) => {
   e.preventDefault();
   try {
-    const apiUrl = `https://mern-netflix-clone-n6wg.onrender.com/api/auth/register`;
     console.log("API URL:", apiUrl);
     await axios.post(apiUrl, { email, username, password });
     history.push("/login");
