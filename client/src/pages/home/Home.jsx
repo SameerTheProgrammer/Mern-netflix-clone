@@ -4,6 +4,7 @@ import "./home.scss";
 import List from "../../components/list/List";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../../constant"
 
 const Home = ({ type }) => {
   const [lists, setLists] = useState([]);
@@ -13,7 +14,7 @@ const Home = ({ type }) => {
     const getRandomLists = async () => {
       try {
         const res = await axios.get(
-          `${process.env.BACKEND_URL}/lists${type ? "?type=" + type : ""}${
+          `${apiUrl}/lists${type ? "?type=" + type : ""}${
             genre ? "&genre=" + genre : ""
           }`,
           {
