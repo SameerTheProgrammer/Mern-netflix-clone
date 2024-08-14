@@ -2,6 +2,7 @@ import "./widgetSm.css";
 import { Visibility } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {apiUrl} from "../../constant";
 
 export default function WidgetSm() {
   const [newUsers, setNewUsers] = useState([]);
@@ -9,7 +10,7 @@ export default function WidgetSm() {
   useEffect(() => {
     const getNewUsers = async () => {
       try {
-        const res = await axios.get(`${process.env.BACKEND_URL}/users?new=true`, {
+        const res = await axios.get(`${apiUrl}/users?new=true`, {
           headers: {
             token:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTZmYzQ2NDk0Mjc3MTYwNDg4MmMxNiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYyNTgzMjMxMSwiZXhwIjoxNjI2MjY0MzExfQ.ATXV-1TTWIGyVBttTQSf0erRWjsgZ8jHQv1ZsUixbng",
@@ -27,7 +28,7 @@ export default function WidgetSm() {
     <div className="widgetSm">
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
-        {newUsers.map((user) => (
+        {newUsers?.map((user) => (
           <li className="widgetSmListItem">
             <img
               src={
