@@ -18,7 +18,7 @@ export default function Register() {
 const handleFinish = async (e) => {
   e.preventDefault();
   try {
-    const apiUrl = `${process.env.BACKEND_URL}/auth/register`;
+    const apiUrl = `https://mern-netflix-clone-n6wg.onrender.com/api/auth/register`;
     console.log("API URL:", apiUrl);
     await axios.post(apiUrl, { email, username, password });
     history.push("/login");
