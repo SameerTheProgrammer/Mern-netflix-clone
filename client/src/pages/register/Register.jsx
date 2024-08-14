@@ -20,7 +20,7 @@ const handleFinish = async (e) => {
   e.preventDefault();
   try {
     console.log("API URL:", apiUrl);
-    await axios.post(apiUrl, { email, username, password });
+    await axios.post(`${apiUrl}auth/register`, { email, username, password });
     history.push("/login");
   } catch (err) {
     console.error("Error during registration:", err);
