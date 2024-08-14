@@ -6,7 +6,9 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/lists");
-const cors = require("cors")
+const cors = require("cors");
+
+let isDbConneted = false;
 
 dotenv.config();
 app.use(cors())
@@ -17,14 +19,18 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => console.log("DB Connection Successfull"))
+  .then(() => {
+    isDbConneted = true
+    console.log("DB Connection Successfull")
+  })
   .catch((err) => {
+    isDbConneted = false
     console.error(err);
   });
 
 app.use(express.json());
 app.get("/",(req,res)=>{
-  res.end("hello")
+  res.json({isDbConneted, message:"hello" })
 })
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
