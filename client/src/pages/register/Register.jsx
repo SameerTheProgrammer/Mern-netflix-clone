@@ -15,17 +15,17 @@ export default function Register() {
   const handleStart = () => {
     setEmail(emailRef.current.value);
   };
-  const handleFinish = async (e) => {
-    e.preventDefault();
-    try {
-      console.log(
-        `${process.env.BACKEND_URL}/auth/register`,
-        { email, username, password }
-      );
-      await axios.post(`${process.env.BACKEND_URL}/auth/register`, { email,username, password });
-      history.push("/login");
-    } catch (err) {}
-  };
+const handleFinish = async (e) => {
+  e.preventDefault();
+  try {
+    const apiUrl = `${process.env.BACKEND_URL}/auth/register`;
+    console.log("API URL:", apiUrl);
+    await axios.post(apiUrl, { email, username, password });
+    history.push("/login");
+  } catch (err) {
+    console.error("Error during registration:", err);
+  }
+};
   return (
     <div className="register">
       <div className="top">
