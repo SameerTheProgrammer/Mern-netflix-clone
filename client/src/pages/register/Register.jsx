@@ -26,6 +26,10 @@ const handleFinish = async (e) => {
     console.error("Error during registration:", err);
   }
 };
+  const handleSignInClick = (e) => {
+    e.preventDefault();
+    history.push("/login");
+  };
   return (
     <div className="register">
       <div className="top">
@@ -35,7 +39,7 @@ const handleFinish = async (e) => {
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
           />
-          <button className="loginButton">Sign In</button>
+          <button onClick={()=> history.push("/login")} className="loginButton">Sign In</button>
         </div>
       </div>
       <div className="container">
@@ -43,6 +47,26 @@ const handleFinish = async (e) => {
         <h2>Watch anywhere. Cancel anytime.</h2>
         <p>
           Ready to watch? Enter your email to create or restart your membership.
+        </p>
+        <p>
+          Wants to login quickly without register use below data to
+          <span
+            style={{
+              margin: "0 5px",
+              "background-color": "red",
+              border: "none",
+              color: "white",
+              "border-radius": "5px",
+              padding: "5px 15px",
+              "font-size": "16px",
+              "font-weight": 500,
+              cursor: "pointer",
+            }}
+            onClick={handleSignInClick}
+          >
+            Sign In
+          </span>
+          Email:- admin100@gmail.com Password:- 123456789
         </p>
         {!email ? (
           <div className="input">
