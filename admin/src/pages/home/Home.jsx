@@ -18,7 +18,7 @@ export default function Home() {
       "May",
       "Jun",
       "Jul",
-      "Agu",
+      "Aug",
       "Sep",
       "Oct",
       "Nov",
@@ -38,6 +38,8 @@ export default function Home() {
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTZmYzQ2NDk0Mjc3MTYwNDg4MmMxNiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYyNTgzMjMxMSwiZXhwIjoxNjI2MjY0MzExfQ.ATXV-1TTWIGyVBttTQSf0erRWjsgZ8jHQv1ZsUixbng",
           },
         });
+        
+        console.log("API Response:", res.data); // Log the API response
         const statsList = res.data?.sort(function (a, b) {
           return a._id - b._id;
         });
