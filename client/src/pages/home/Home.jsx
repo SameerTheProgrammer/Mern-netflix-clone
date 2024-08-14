@@ -24,7 +24,8 @@ const Home = ({ type }) => {
             },
           }
         );
-        setLists(res.data);
+        console.log("API Response:", res.data); // Log response
+        setLists(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         console.log(err);
       }
@@ -36,8 +37,8 @@ const Home = ({ type }) => {
     <div className="home">
       <Navbar />
       <Featured type={type} setGenre={setGenre} />
-      {lists.map((list) => (
-        <List list={list} />
+      {Array.isArray(lists) && lists.map((list) => (
+        <List key={list._id} list={list} />
       ))}
     </div>
   );
