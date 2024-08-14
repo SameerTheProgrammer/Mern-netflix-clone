@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./register.scss";
-import { apiUrl } from "../constant";
+import { apiUrl } from "../../constant";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ const handleFinish = async (e) => {
   e.preventDefault();
   try {
     console.log("API URL:", apiUrl);
-    await axios.post(`${apiUrl}auth/register`, { email, username, password });
+    await axios.post(`${apiUrl}/auth/register`, { email, username, password });
     history.push("/login");
   } catch (err) {
     console.error("Error during registration:", err);
