@@ -59,14 +59,14 @@ export default function NewMovie() {
             });
             setUploaded((prev) => prev + 1);
             console.log(`item length: ${items.length +1} and uploaded ${uploaded}`);
-            if (uploaded == 5 ) {
-              setLoading(false); // Hide loader when all uploads are done
-              setError("");
-            }
           });
         }
-      );
+      );  
     });
+    if (uploaded === 5) {
+      setLoading(false); // Hide loader when all uploads are done
+      setError("");
+    }
   };
 
   const handleUpload = (e) => {
