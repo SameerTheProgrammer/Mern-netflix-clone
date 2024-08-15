@@ -13,6 +13,7 @@ export default function NewMovie() {
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
   const [loading, setLoading] = useState(false); // Loader state
+  const [error, setError] = useState(""); // Error state
 
   const { dispatch } = useContext(MovieContext);
 
@@ -23,6 +24,7 @@ export default function NewMovie() {
 
   const upload = (items) => {
     setLoading(true); // Show loader
+    setError(""); // Reset error state
     items.forEach((item) => {
       const fileName = new Date().getTime() + item.label + item.file.name;
       const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
@@ -35,6 +37,8 @@ export default function NewMovie() {
         },
         (error) => {
           console.log(error);
+          setError("Failed to upload files. Please try again."); // Set error message
+          setLoading(false); // Hide loader on error
         },
         () => {
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
@@ -76,6 +80,7 @@ export default function NewMovie() {
           </div>
         </div>
       )}
+      {error && <div className="errorMessage">{error}</div>}
       <h1 className="addProductTitle">New Movie</h1>
       <form className="addProductForm">
         {/* Form Fields */}
