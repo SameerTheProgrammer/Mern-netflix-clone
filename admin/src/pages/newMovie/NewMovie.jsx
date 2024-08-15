@@ -12,6 +12,7 @@ export default function NewMovie() {
   const [trailer, setTrailer] = useState(null);
   const [video, setVideo] = useState(null);
   const [uploaded, setUploaded] = useState(0);
+  const [loading, setLoading] = useState(false); // Loader state
 
   const { dispatch } = useContext(MovieContext);
 
@@ -21,6 +22,7 @@ export default function NewMovie() {
   };
 
   const upload = (items) => {
+    setLoading(true); // Show loader
     items.forEach((item) => {
       const fileName = new Date().getTime() + item.label + item.file.name;
       const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
@@ -40,6 +42,9 @@ export default function NewMovie() {
               return { ...prev, [item.label]: url };
             });
             setUploaded((prev) => prev + 1);
+            if (uploaded + 1 === items.length) {
+              setLoading(false); // Hide loader when all uploads are done
+            }
           });
         }
       );
@@ -64,8 +69,16 @@ export default function NewMovie() {
 
   return (
     <div className="newProduct">
+      {loading && (
+        <div className="loader-overlay">
+          <div className="loader">
+            <p>Movie is uploading...</p>
+          </div>
+        </div>
+      )}
       <h1 className="addProductTitle">New Movie</h1>
       <form className="addProductForm">
+        {/* Form Fields */}
         <div className="addProductItem">
           <label>Image</label>
           <input
