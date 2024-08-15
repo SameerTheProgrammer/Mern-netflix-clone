@@ -63,14 +63,19 @@ export default function NewMovie() {
         }
       );  
     });
-    if (uploaded === 5) {
-      setLoading(false); // Hide loader when all uploads are done
-      setError("");
-    }
   };
 
+  if (uploaded === 5) {
+    setLoading(false); // Hide loader when all uploads are done
+    setError("");
+  }
+  
   const handleUpload = (e) => {
     e.preventDefault();
+    if(!img || !imgTitle || !imgSm || !trailer || !video){
+      alert("Select all Files");
+      return;
+    }
     upload([
       { file: img, label: "img" },
       { file: imgTitle, label: "imgTitle" },
@@ -83,6 +88,8 @@ export default function NewMovie() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createMovie(movie, dispatch);
+    setError("")
+    setUploaded(0);
   };
 
   return (
