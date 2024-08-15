@@ -14,6 +14,7 @@ export default function NewMovie() {
   const [uploaded, setUploaded] = useState(0);
   const [loading, setLoading] = useState(false); // Loader state
   const [error, setError] = useState(""); // Error state
+  const [cancelUpload, setCancelUpload] = useState(false); // Cancel upload state
 
   const { dispatch } = useContext(MovieContext);
 
@@ -25,9 +26,16 @@ export default function NewMovie() {
   const upload = (items) => {
     setLoading(true); // Show loader
     setError(""); // Reset error state
-    items.forEach((item) => {
+    setCancelUpload(false); // Reset cancel state
+    let uploadTasks = [];
+
+    items.forEach((item, index) => {
+      if (cancelUpload) return; // Stop further uploads if cancel is triggered
+
       const fileName = new Date().getTime() + item.label + item.file.name;
       const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
+      uploadTasks.push(uploadTask);
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -35,19 +43,25 @@ export default function NewMovie() {
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
         },
-        (error) => {
-          console.log(error);
+        (err) => {
+          console.log(err);
           setError("Failed to upload files. Please try again."); // Set error message
+          setCancelUpload(true); // Trigger cancel for ongoing uploads
           setLoading(false); // Hide loader on error
+          uploadTasks.forEach((task) => task.cancel()); // Cancel all ongoing uploads
         },
         () => {
+          if (cancelUpload) return; // If cancel triggered, do nothing
+
           uploadTask.snapshot.ref.getDownloadURL().then((url) => {
             setMovie((prev) => {
               return { ...prev, [item.label]: url };
             });
             setUploaded((prev) => prev + 1);
-            if (uploaded + 1 === items.length) {
+            console.log(`item length: ${items.length +1} and uploaded ${uploaded}`);
+            if (uploaded == 5 ) {
               setLoading(false); // Hide loader when all uploads are done
+              setError("");
             }
           });
         }
