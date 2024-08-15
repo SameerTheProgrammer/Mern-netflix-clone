@@ -58,17 +58,19 @@ export default function NewMovie() {
               return { ...prev, [item.label]: url };
             });
             setUploaded((prev) => prev + 1);
-            console.log(`item length: ${items.length +1} and uploaded ${uploaded}`);
           });
         }
       );  
     });
   };
 
-  if (uploaded === 5) {
-    setLoading(false); // Hide loader when all uploads are done
-    setError("");
-  }
+  useEffect(() => {
+    if (uploaded === 5) {
+      setLoading(false); // Hide loader when all uploads are done
+      setError("");
+    }
+  }, [uploaded]);
+
   
   const handleUpload = (e) => {
     e.preventDefault();
