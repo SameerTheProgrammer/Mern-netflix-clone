@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import 'firebase/storage';
+
 const firebaseConfig = {
   apiKey: "AIzaSyBjlNG5FLT-XG4SvLXDnPfR_VVY9LpCy_0",
   authDomain: "mern-netflix-clone-ba7de.firebaseapp.com",
@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const storage = firebase.storage().ref();
+const storage = firebase.storage();
 export default storage;
 
 
