@@ -96,7 +96,7 @@ export default function NewMovie() {
     setImgSm(null);
     setTrailer(null);
     setVideo(null);
-    setMovie(null);
+    setMovie({});
   };
 
   return (
