@@ -4,9 +4,8 @@ import storage from "../../firebase";
 import { createMovie } from "../../context/movieContext/apiCalls";
 import { MovieContext } from "../../context/movieContext/MovieContext";
 
-
 export default function NewMovie() {
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState({});
   const [img, setImg] = useState(null);
   const [imgTitle, setImgTitle] = useState(null);
   const [imgSm, setImgSm] = useState(null);
@@ -61,7 +60,7 @@ export default function NewMovie() {
             setUploaded((prev) => prev + 1);
           });
         }
-      );  
+      );
     });
   };
 
@@ -72,10 +71,9 @@ export default function NewMovie() {
     }
   }, [uploaded]);
 
-  
   const handleUpload = (e) => {
     e.preventDefault();
-    if(!img || !imgTitle || !imgSm || !trailer || !video){
+    if (!img || !imgTitle || !imgSm || !trailer || !video) {
       alert("Select all Files");
       return;
     }
@@ -91,7 +89,7 @@ export default function NewMovie() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createMovie(movie, dispatch);
-    setError("")
+    setError("");
     setUploaded(0);
   };
 
