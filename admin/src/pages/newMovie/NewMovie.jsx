@@ -32,7 +32,7 @@ export default function NewMovie() {
     items.forEach((item, index) => {
       if (cancelUpload) return; // Stop further uploads if cancel is triggered
 
-      const fileName = new Date().getTime() + item.label + item.file.name;
+      const fileName = new Date().getTime() + item.label + item.file?.name;
       const uploadTask = storage.ref(`/items/${fileName}`).put(item.file);
       uploadTasks.push(uploadTask);
 
