@@ -44,11 +44,11 @@ export default function MovieList() {
       renderCell: (params) => {
         return (
           <>
-            <Link
+{/*             <Link
               to={{ pathname: "/movie/" + params.row._id, movie: params.row }}
             >
               <button className="productListEdit">Edit</button>
-            </Link>
+            </Link> */}
             <DeleteOutline
               className="productListDelete"
               onClick={() => handleDelete(params.row._id)}
