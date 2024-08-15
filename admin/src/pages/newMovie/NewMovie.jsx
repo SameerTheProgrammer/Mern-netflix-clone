@@ -91,6 +91,12 @@ export default function NewMovie() {
     createMovie(movie, dispatch);
     setError("");
     setUploaded(0);
+    setImg(null);
+    setImgTitle(null);
+    setImgSm(null);
+    setTrailer(null);
+    setVideo(null);
+    setMovie(null);
   };
 
   return (
